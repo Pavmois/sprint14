@@ -5,6 +5,6 @@ const {
 
 cards.post('/cards', createCard);
 cards.get('/cards', getAllCards);
-cards.delete('/:id', deleteCard);
+cards.delete('/cards/:id', deleteCard);
 
 module.exports = cards;

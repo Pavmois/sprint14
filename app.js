@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 app.use('/', cardsRoute);
 app.use('/', usersRoute);
 
-app.get('*', (req, res) => {
+app.use('*', (req, res) => {
   res.statusCode = 404;
   res.json({ message: 'Запрашиваемый ресурс не найден' });
 });
