@@ -34,8 +34,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/', cardsRoute);
-app.use('/', usersRoute);
+app.use('/cards', cardsRoute);
+app.use('/users', usersRoute);
 
 app.use('*', (req, res) => {
   res.statusCode = 404;
