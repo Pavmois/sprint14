@@ -18,12 +18,10 @@ module.exports.deleteCard = (req, res) => {
   Card.findById(req.params.id)
     // eslint-disable-next-line consistent-return
     .then((card) => {
-      if (!card) return Promise.reject(new Error('Карточка отсутствует'));
+      if (!card) return res.status(404).send({ message: 'Карточка отсутствует' });
       if (!card.owner.equals(req.user._id)) return res.status(403).send({ message: 'Вы не можете удалять чужие карточки' });
 
-      Card.remove(card)
-        .then((cardToDelete) => res.send(cardToDelete !== null ? { data: card } : { data: 'Нечего удалять' }))
-        .catch(() => res.status(403).send({ message: 'Произошла ошибка при удалении карточки' }));
+      return Card.remove(card).then((cardToDelete) => res.send(cardToDelete));
     })
-    .catch(() => res.status(404).send({ message: 'Карточка отсутствует' }));
+    .catch(() => res.status(500).send({ message: 'Карточка отсутствует' }));
 };
